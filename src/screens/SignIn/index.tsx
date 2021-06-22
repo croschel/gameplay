@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Image, Text } from "react-native";
-import IllustrationImg from "../assets/illustration.png";
-import ButtonIcon from "../components/ButtonIcon";
+import IllustrationImg from "~/assets/illustration.png";
+import ButtonIcon from "~/components/ButtonIcon";
 import { styles } from "./styles";
 
 const SignIn: React.FC = () => {
