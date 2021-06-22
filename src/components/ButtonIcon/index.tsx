@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Image, Text, TouchableOpacity } from "react-native";
-import DiscordImg from "../../assets/discord.png";
+import DiscordImg from "~/assets/discord.png";
 import { styles } from "./styles";
 
 const ButtonIcon: React.FC = () => {
