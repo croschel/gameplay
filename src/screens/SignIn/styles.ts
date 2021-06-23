@@ -1,12 +1,11 @@
 import { StyleSheet } from "react-native";
-import { colors } from "~/global/styles/theme";
+import { colors, fonts } from "~/global/styles/theme";
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: colors.secondary90,
   },
   content: {
     marginTop: -40,
@@ -16,15 +15,19 @@ export const styles = StyleSheet.create({
     height: 360,
   },
   title: {
-    color: colors.headind,
+    color: colors.heading,
     textAlign: "center",
     fontSize: 40,
     marginBottom: 16,
+    fontFamily: fonts.title700,
+    lineHeight: 40,
   },
   subtitle: {
-    color: colors.headind,
+    color: colors.heading,
     textAlign: "center",
     fontSize: 15,
     marginBottom: 64,
+    fontFamily: fonts.title500,
+    lineHeight: 25,
   },
 });
