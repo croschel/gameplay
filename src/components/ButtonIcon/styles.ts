@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
   },
   title: {
     flex: 1,
-    color: colors.headind,
+    color: colors.heading,
     fontSize: 15,
     textAlign: "center",
   },

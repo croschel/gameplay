@@ -1,16 +1,28 @@
 import React from "react";
-import { View, Image, Text, TouchableOpacity } from "react-native";
-import DiscordImg from "~/assets/discord.png";
+import {
+  View,
+  Image,
+  Text,
+  TouchableOpacity,
+  ImageURISource,
+} from "react-native";
+import { RectButton } from "react-native-gesture-handler";
 import { styles } from "./styles";
 
-const ButtonIcon: React.FC = () => {
+type ButtonIconProps = {
+  icon: ImageURISource;
+  title: string;
+  onPress: () => void;
+};
+
+const ButtonIcon = ({ icon, title, onPress }: ButtonIconProps) => {
   return (
-    <TouchableOpacity style={styles.container} activeOpacity={0.7}>
+    <RectButton style={styles.container} onPress={onPress}>
       <View style={styles.iconWrapper}>
-        <Image source={DiscordImg} style={styles.icon} />
+        <Image source={icon} style={styles.icon} />
       </View>
-      <Text style={styles.title}>Entrar com Discord</Text>
-    </TouchableOpacity>
+      <Text style={styles.title}>{title}</Text>
+    </RectButton>
   );
 };
 
