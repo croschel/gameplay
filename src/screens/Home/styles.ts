@@ -7,10 +7,12 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
+    alignItems: "center",
+    justifyContent: "space-between",
     width: "100%",
     paddingHorizontal: 24,
     flexDirection: "row",
-    marginTop: Platform.OS === "ios" ? getStatusBarHeight() + 36 : 36,
+    marginTop: Platform.OS === "ios" ? getStatusBarHeight() + 46 : 46,
     marginBottom: 42,
   },
 });
