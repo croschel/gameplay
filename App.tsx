@@ -1,5 +1,5 @@
 import React from "react";
-import Home from "~/screens/Home";
+import Routes from "~/routes";
 import Background from "~/components/Background";
 import { StyleSheet, View, StatusBar } from "react-native";
 import { useFonts } from "expo-font";
@@ -22,19 +22,13 @@ export default function App() {
     return <AppLoading />;
   }
   return (
-    <Background>
+    <>
       <StatusBar
         barStyle="light-content"
         backgroundColor="transparent"
         translucent
       />
-      <Home />
-    </Background>
+      <Routes />
+    </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
