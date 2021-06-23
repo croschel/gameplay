@@ -10,8 +10,7 @@ export const styles = StyleSheet.create({
     width: "100%",
     paddingHorizontal: 24,
     flexDirection: "row",
-    justifyContent: "center",
-    marginTop: Platform.OS === "ios" ? getStatusBarHeight() + 26 : 26,
+    marginTop: Platform.OS === "ios" ? getStatusBarHeight() + 36 : 36,
     marginBottom: 42,
   },
 });
