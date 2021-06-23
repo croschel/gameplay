@@ -15,4 +15,11 @@ export const styles = StyleSheet.create({
     marginTop: Platform.OS === "ios" ? getStatusBarHeight() + 46 : 46,
     marginBottom: 42,
   },
+  content: {
+    marginTop: 42,
+  },
+  matches: {
+    marginTop: 24,
+    marginLeft: 24,
+  },
 });
