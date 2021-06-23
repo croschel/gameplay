@@ -1,5 +1,6 @@
 import React from "react";
-import SignIn from "~/screens/SignIn";
+import Home from "~/screens/Home";
+import Background from "~/components/Background";
 import { StyleSheet, View, StatusBar } from "react-native";
 import { useFonts } from "expo-font";
 import { Inter_400Regular, Inter_500Medium } from "@expo-google-fonts/inter";
@@ -21,14 +22,14 @@ export default function App() {
     return <AppLoading />;
   }
   return (
-    <View style={styles.container}>
+    <Background>
       <StatusBar
         barStyle="light-content"
         backgroundColor="transparent"
         translucent
       />
-      <SignIn />
-    </View>
+      <Home />
+    </Background>
   );
 }
 
