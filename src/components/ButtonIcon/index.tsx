@@ -7,15 +7,16 @@ import {
   ImageURISource,
 } from "react-native";
 import { RectButton } from "react-native-gesture-handler";
+import DiscordImg from "~/assets/discord.png";
 import { styles } from "./styles";
 
 type ButtonIconProps = {
-  icon: ImageURISource;
+  icon?: ImageURISource;
   title: string;
   onPress: () => void;
 };
 
-const ButtonIcon = ({ icon, title, onPress }: ButtonIconProps) => {
+const ButtonIcon = ({ icon = DiscordImg, title, onPress }: ButtonIconProps) => {
   return (
     <RectButton style={styles.container} onPress={onPress}>
       <View style={styles.iconWrapper}>

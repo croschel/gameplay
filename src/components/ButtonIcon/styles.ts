@@ -3,12 +3,13 @@ import { colors } from "../../global/styles/theme";
 
 export const styles = StyleSheet.create({
   container: {
-    width: "70%",
+    width: "80%",
     height: 56,
     backgroundColor: colors.primary,
     borderRadius: 8,
     flexDirection: "row",
     alignItems: "center",
+    alignSelf: "center",
   },
   iconWrapper: {
     width: 56,
