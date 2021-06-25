@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import Home from "~/screens/Home";
 import SignIn from "~/screens/SignIn";
+import { colors } from "~/global/styles/theme";
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -13,7 +14,7 @@ const AuthRoutes = () => {
       headerMode="none"
       screenOptions={{
         cardStyle: {
-          backgroundColor: "transparent",
+          backgroundColor: colors.secondary100,
         },
       }}
     >
