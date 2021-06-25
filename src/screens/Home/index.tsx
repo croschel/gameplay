@@ -7,8 +7,10 @@ import CategorySelect from "~/components/CategorySelect";
 import Appointment from "~/components/Appointment";
 import ListDivider from "~/components/ListDivider";
 import { styles } from "./styles";
+import { useNavigation } from "@react-navigation/native";
 
 const Home: React.FC = () => {
+  const navigation = useNavigation();
   const [category, setCategory] = useState("");
   const handleCategorySelect = (categoryId: string) => {
     categoryId === category ? setCategory("") : setCategory(categoryId);
@@ -42,6 +44,10 @@ const Home: React.FC = () => {
         "É hoje que vamos chegar ao challenger sem perder uma partida da md10",
     },
   ];
+
+  const handleAppointmentDetails = () => {
+    navigation.navigate("AppointmentDetails");
+  };
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -59,7 +65,9 @@ const Home: React.FC = () => {
             style={styles.matches}
             data={appointments}
             keyExtractor={(item) => item.id}
-            renderItem={({ item }) => <Appointment data={item} />}
+            renderItem={({ item }) => (
+              <Appointment data={item} onPress={handleAppointmentDetails} />
+            )}
             ItemSeparatorComponent={() => <ListDivider />}
           />
         </View>
