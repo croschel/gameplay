@@ -29,9 +29,13 @@ const AppointmentCreate: React.FC = () => {
     setOpenGuildsModal(true);
   };
 
+  const handleCloseGuilds = () => {
+    setOpenGuildsModal(false);
+  };
+
   const handleGuildSelect = (guildSelected: GuildProps) => {
     setGuild(guildSelected);
-    setOpenGuildsModal(false);
+    handleCloseGuilds();
   };
 
   return (
@@ -101,7 +105,7 @@ const AppointmentCreate: React.FC = () => {
           </View>
         </View>
       </ScrollView>
-      <ModalView visible={openGuildsModal}>
+      <ModalView visible={openGuildsModal} closeModal={handleCloseGuilds}>
         <Guilds handleGuildSelected={handleGuildSelect} />
       </ModalView>
     </KeyboardAvoidingView>
