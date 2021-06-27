@@ -38,6 +38,10 @@ const AppointmentCreate: React.FC = () => {
     handleCloseGuilds();
   };
 
+  const handleCategorySelect = (categoryId: string) => {
+    setCategory(categoryId);
+  };
+
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -55,7 +59,7 @@ const AppointmentCreate: React.FC = () => {
         </Text>
         <CategorySelect
           hasCheckedBox
-          setCategory={setCategory}
+          setCategory={handleCategorySelect}
           categorySelected={category}
         />
         <View style={styles.form}>
