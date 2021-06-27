@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Image, Text, Alert } from "react-native";
+import { View, Image, Text, Alert, ActivityIndicator } from "react-native";
 import ButtonIcon from "~/components/ButtonIcon";
 import IllustrationImg from "~/assets/illustration.png";
 import DiscordImg from "~/assets/discord.png";
@@ -7,9 +7,10 @@ import DiscordImg from "~/assets/discord.png";
 import { styles } from "./styles";
 
 import { useAuth } from "~/hooks/auth";
+import { colors } from "~/global/styles/theme";
 
 const SignIn: React.FC = () => {
-  const { user, signIn } = useAuth();
+  const { user, signIn, loading } = useAuth();
 
   const handleSignIn = async () => {
     try {
@@ -35,11 +36,15 @@ const SignIn: React.FC = () => {
           Crie grupos para jogar seus games {`\n`}
           favoritos com seus amigos
         </Text>
-        <ButtonIcon
-          icon={DiscordImg}
-          title="Entrar com Discord"
-          onPress={handleSignIn}
-        />
+        {loading ? (
+          <ActivityIndicator color={colors.primary} />
+        ) : (
+          <ButtonIcon
+            icon={DiscordImg}
+            title="Entrar com Discord"
+            onPress={handleSignIn}
+          />
+        )}
       </View>
     </View>
   );
