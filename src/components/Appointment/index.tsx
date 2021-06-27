@@ -7,13 +7,7 @@ import { colors } from "~/global/styles/theme";
 import { categories } from "~/utils/categories";
 import GuildIcon from "../GuildIcon";
 import { styles } from "./styles";
-
-export type GuildProps = {
-  id: string;
-  owner: boolean;
-  name: string;
-  icon: null;
-};
+import { GuildProps } from "../Guild";
 
 type AppointmentProps = {
   id: string;
