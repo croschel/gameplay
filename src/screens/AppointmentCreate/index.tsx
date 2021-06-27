@@ -1,64 +1,88 @@
-import React from "react";
-import { View, Text, ImageBackground, FlatList } from "react-native";
-import ListHeader from "~/components/ListHeader";
-import { BorderlessButton } from "react-native-gesture-handler";
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
+import { Feather } from "@expo/vector-icons";
+import { BorderlessButton, RectButton } from "react-native-gesture-handler";
+import Button from "~/components/Button";
 import Header from "~/components/Header";
-import Member from "~/components/Member";
-import ListDivider from "~/components/ListDivider";
-import ButtonIcon from "~/components/ButtonIcon";
-
-import { Fontisto } from "@expo/vector-icons";
-
-import BannerPng from "~/assets/banner.png";
-
+import TextArea from "~/components/TextArea";
+import CategorySelect from "~/components/CategorySelect";
+import SmallInput from "~/components/SmallInput";
 import { styles } from "./styles";
 import { colors } from "~/global/styles/theme";
 
 const AppointmentCreate: React.FC = () => {
-  const members = [
-    {
-      id: "1",
-      username: "Caique",
-      avatar: "https://github.com/croschel.png",
-      status: "online",
-    },
-    {
-      id: "2",
-      username: "Caique",
-      avatar: "http://github.com/croschel.png",
-      status: "offline",
-    },
-  ];
+  const [category, setCategory] = useState("");
   return (
-    <View style={styles.container}>
-      <Header
-        title="Detalhes"
-        actions={
-          <BorderlessButton>
-            <Fontisto name="share" size={24} color={colors.primary} />
-          </BorderlessButton>
-        }
-      />
-      <ImageBackground source={BannerPng} style={styles.banner}>
-        <View style={styles.bannerContent}>
-          <Text style={styles.title}>Lendários</Text>
-          <Text style={styles.subtitle}>
-            É hoje que vamos chegar ao challenger sem perder uma partida da md10
-          </Text>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
+      <Header title="Agendar partida" />
+      <ScrollView style={styles.container}>
+        <Text
+          style={[
+            styles.label,
+            { marginLeft: 24, marginTop: 36, marginBottom: 18 },
+          ]}
+        >
+          Categoria
+        </Text>
+        <CategorySelect
+          hasCheckedBox
+          setCategory={setCategory}
+          categorySelected={category}
+        />
+        <View style={styles.form}>
+          <RectButton>
+            <View style={styles.select}>
+              <View style={styles.image} />
+              <View style={styles.selectBody}>
+                <Text style={styles.label}>Selecione um servidor</Text>
+              </View>
+              <Feather name="chevron-right" color={colors.heading} size={18} />
+            </View>
+          </RectButton>
+          <View style={styles.field}>
+            <View>
+              <Text style={styles.label}>Dia e mês</Text>
+              <View style={styles.column}>
+                <SmallInput maxLength={2} />
+                <Text style={styles.divider}>/</Text>
+                <SmallInput maxLength={2} />
+              </View>
+            </View>
+            <View>
+              <Text style={styles.label}>Hora e minuto</Text>
+              <View style={styles.column}>
+                <SmallInput maxLength={2} />
+                <Text style={styles.divider}>:</Text>
+                <SmallInput maxLength={2} />
+              </View>
+            </View>
+          </View>
+
+          <View style={[styles.field, { marginBottom: 12 }]}>
+            <Text style={styles.label}>Descrição</Text>
+            <Text style={styles.caracteresLimit}>Max 100 caracteres</Text>
+          </View>
+          <TextArea
+            multiline
+            maxLength={100}
+            numberOfLines={5}
+            autoCorrect={false}
+          />
+          <View style={styles.footer}>
+            <Button title="Agendar" onPress={() => {}} />
+          </View>
         </View>
-      </ImageBackground>
-      <ListHeader title="Jogadores" subtitle="total 3" />
-      <FlatList
-        data={members}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <Member data={item} />}
-        ItemSeparatorComponent={() => <ListDivider />}
-        style={styles.members}
-      />
-      <View style={styles.footer}>
-        <ButtonIcon title="Entrar na partida" onPress={() => {}} />
-      </View>
-    </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
