@@ -7,17 +7,33 @@ import {
   Platform,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
-import { BorderlessButton, RectButton } from "react-native-gesture-handler";
+import { RectButton } from "react-native-gesture-handler";
 import Button from "~/components/Button";
 import Header from "~/components/Header";
 import TextArea from "~/components/TextArea";
 import CategorySelect from "~/components/CategorySelect";
 import SmallInput from "~/components/SmallInput";
+import ModalView from "~/components/ModalView";
+import Guilds from "../Guilds";
+import GuildIcon from "~/components/GuildIcon";
 import { styles } from "./styles";
 import { colors } from "~/global/styles/theme";
+import { GuildProps } from "~/components/Guild";
 
 const AppointmentCreate: React.FC = () => {
   const [category, setCategory] = useState("");
+  const [openGuildsModal, setOpenGuildsModal] = useState(false);
+  const [guild, setGuild] = useState<GuildProps>({} as GuildProps);
+
+  const handleOpenGuilds = () => {
+    setOpenGuildsModal(true);
+  };
+
+  const handleGuildSelect = (guildSelected: GuildProps) => {
+    setGuild(guildSelected);
+    setOpenGuildsModal(false);
+  };
+
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -39,11 +55,14 @@ const AppointmentCreate: React.FC = () => {
           categorySelected={category}
         />
         <View style={styles.form}>
-          <RectButton>
+          <RectButton onPress={handleOpenGuilds}>
             <View style={styles.select}>
-              <View style={styles.image} />
+              {guild.icon ? <GuildIcon /> : <View style={styles.image} />}
+
               <View style={styles.selectBody}>
-                <Text style={styles.label}>Selecione um servidor</Text>
+                <Text style={styles.label}>
+                  {guild.name ? guild.name : "Selecione um servidor"}
+                </Text>
               </View>
               <Feather name="chevron-right" color={colors.heading} size={18} />
             </View>
@@ -82,6 +101,9 @@ const AppointmentCreate: React.FC = () => {
           </View>
         </View>
       </ScrollView>
+      <ModalView visible={openGuildsModal}>
+        <Guilds handleGuildSelected={handleGuildSelect} />
+      </ModalView>
     </KeyboardAvoidingView>
   );
 };
