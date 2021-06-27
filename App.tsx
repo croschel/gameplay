@@ -10,6 +10,7 @@ import {
 } from "@expo-google-fonts/rajdhani";
 import AppLoading from "expo-app-loading";
 import { LogBox } from "react-native";
+import { AuthProvider } from "~/hooks/auth";
 
 LogBox.ignoreLogs([
   "You are not currently signed in to Expo on your development machine.",
@@ -33,7 +34,9 @@ export default function App() {
         backgroundColor="transparent"
         translucent
       />
-      <Routes />
+      <AuthProvider>
+        <Routes />
+      </AuthProvider>
     </>
   );
 }
