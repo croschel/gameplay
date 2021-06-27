@@ -1,10 +1,14 @@
 import React from "react";
-import { View, FlatList } from "react-native";
-import Guild from "~/components/Guild";
+import { View, FlatList, Text } from "react-native";
+import Guild, { GuildProps } from "~/components/Guild";
 import ListDivider from "~/components/ListDivider";
 import { styles } from "./styles";
 
-const Guilds: React.FC = () => {
+type Props = {
+  handleGuildSelected: (guild: GuildProps) => void;
+};
+
+const Guilds = ({ handleGuildSelected }: Props) => {
   const guilds = [
     {
       id: "1",
@@ -12,13 +16,21 @@ const Guilds: React.FC = () => {
       icon: null,
       owner: true,
     },
+    {
+      id: "2",
+      name: "Outros",
+      icon: null,
+      owner: true,
+    },
   ];
   return (
-    <View>
+    <View style={styles.container}>
       <FlatList
         data={guilds}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <Guild data={item} />}
+        renderItem={({ item }) => (
+          <Guild data={item} onPress={() => handleGuildSelected(item)} />
+        )}
         ItemSeparatorComponent={() => <ListDivider />}
         showsVerticalScrollIndicator={false}
         style={styles.guild}
