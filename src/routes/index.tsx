@@ -1,7 +1,7 @@
 import React from "react";
 
 import { NavigationContainer } from "@react-navigation/native";
-import AuthRoutes from "./auth.routes";
+import AppRoutes from "./app.routes";
 import Background from "~/components/Background";
 import SignIn from "~/screens/SignIn";
 import { AuthProvider, useAuth } from "~/hooks/auth";
@@ -11,7 +11,7 @@ const Routes: React.FC = () => {
   return (
     <Background>
       <NavigationContainer>
-        {user.id ? <AuthRoutes /> : <SignIn />}
+        {user.id ? <AppRoutes /> : <SignIn />}
       </NavigationContainer>
     </Background>
   );
