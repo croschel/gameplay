@@ -27,7 +27,7 @@ const Header = ({ title, actions }: HeaderProps) => {
         <Feather name="arrow-left" size={24} color={colors.heading} />
       </BorderlessButton>
       <Text style={styles.title}>{title}</Text>
-      {actions && <View>{actions}</View>}
+      {actions ? <View>{actions}</View> : <View style={{ width: 24 }} />}
     </LinearGradient>
   );
 };
