@@ -6,29 +6,13 @@ import Header from "~/components/Header";
 import Member from "~/components/Member";
 import ListDivider from "~/components/ListDivider";
 import ButtonIcon from "~/components/ButtonIcon";
-
 import { Fontisto } from "@expo/vector-icons";
-
 import BannerPng from "~/assets/banner.png";
-
+import { members } from "~/mocks/members";
 import { styles } from "./styles";
 import { colors } from "~/global/styles/theme";
 
 const AppointmentDetails: React.FC = () => {
-  const members = [
-    {
-      id: "1",
-      username: "Caique",
-      avatar: "https://github.com/croschel.png",
-      status: "online",
-    },
-    {
-      id: "2",
-      username: "Caique",
-      avatar: "http://github.com/croschel.png",
-      status: "offline",
-    },
-  ];
   return (
     <View style={styles.container}>
       <Header
@@ -53,6 +37,7 @@ const AppointmentDetails: React.FC = () => {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <Member data={item} />}
         ItemSeparatorComponent={() => <ListDivider />}
+        contentContainerStyle={{ paddingBottom: 16 }}
         style={styles.members}
       />
       <View style={styles.footer}>

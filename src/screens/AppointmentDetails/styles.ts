@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import { colors, fonts } from "~/global/styles/theme";
 import { getBottomSpace } from "react-native-iphone-x-helper";
 
@@ -9,7 +9,6 @@ export const styles = StyleSheet.create({
   banner: {
     width: "100%",
     height: 234,
-    marginBottom: 30,
   },
   bannerContent: {
     flex: 1,
@@ -32,7 +31,7 @@ export const styles = StyleSheet.create({
     marginTop: 27,
   },
   footer: {
-    flex: 1,
-    marginBottom: getBottomSpace(),
+    marginTop: 8,
+    marginBottom: Platform.OS === "ios" ? getBottomSpace() : 8,
   },
 });
