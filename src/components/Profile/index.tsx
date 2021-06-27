@@ -6,7 +6,7 @@ import { styles } from "./styles";
 
 const Profile: React.FC = () => {
   const { user } = useAuth();
-  console.log(user);
+  // console.log(user);
   return (
     <View style={styles.container}>
       <Avatar urlImage={user.avatar} />
