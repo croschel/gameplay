@@ -1,29 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, Alert } from "react-native";
 import Avatar from "~/components/Avatar";
+import ModalBottom from "../ModalBottom";
 import { RectButton } from "react-native-gesture-handler";
 import { useAuth } from "~/hooks/auth";
 import { styles } from "./styles";
 
 const Profile = () => {
   const { user, signOut } = useAuth();
+  const [showModal, setShowModal] = useState(false);
 
-  function handleSignOut() {
-    Alert.alert("Logout", "Deseja realmente sair", [
-      {
-        text: "Não",
-        style: "cancel",
-      },
-      {
-        text: "Sim",
-        onPress: () => signOut(),
-      },
-    ]);
-  }
+  const handleSignOutModal = () => {
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
 
   return (
     <View style={styles.container}>
-      <RectButton onPress={handleSignOut}>
+      <RectButton onPress={handleSignOutModal}>
         <Avatar urlImage={user.avatar} />
       </RectButton>
       <View>
@@ -33,6 +30,11 @@ const Profile = () => {
         </View>
         <Text style={styles.message}>Hoje é dia de vitória</Text>
       </View>
+      <ModalBottom
+        visible={showModal}
+        closeModal={closeModal}
+        actionModal={signOut}
+      />
     </View>
   );
 };
