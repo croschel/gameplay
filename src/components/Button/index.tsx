@@ -1,19 +1,21 @@
 import React from "react";
-import { Text, ImageURISource } from "react-native";
+import { TouchableOpacityProps } from "react-native";
+import { Text, ImageURISource, TouchableOpacity } from "react-native";
+import { RectButtonProps } from "react-native-gesture-handler";
 import { RectButton } from "react-native-gesture-handler";
 import { styles } from "./styles";
 
-type ButtonProps = {
+type ButtonProps = TouchableOpacityProps & {
   icon?: ImageURISource;
   title: string;
   onPress: () => void;
 };
 
-const Button = ({ title, onPress }: ButtonProps) => {
+const Button = ({ title, onPress, ...rest }: ButtonProps) => {
   return (
-    <RectButton style={styles.container} onPress={onPress}>
+    <TouchableOpacity style={styles.container} onPress={onPress} {...rest}>
       <Text style={styles.title}>{title}</Text>
-    </RectButton>
+    </TouchableOpacity>
   );
 };
 
