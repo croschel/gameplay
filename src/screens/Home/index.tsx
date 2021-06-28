@@ -19,7 +19,7 @@ const Home: React.FC = () => {
   const [appointments, setAppointments] = useState<AppointmentProps[]>();
 
   const handleCategorySelect = (categoryId: string) => {
-    categoryId === category ? setCategory("") : setCategory(categoryId);
+    categoryId === category ? setCategory(null) : setCategory(categoryId);
   };
 
   const handleAppointmentDetails = () => {
@@ -36,7 +36,7 @@ const Home: React.FC = () => {
 
     const appointments: AppointmentProps[] = storage ? JSON.parse(storage) : [];
 
-    if (category !== null) {
+    if (category) {
       setAppointments(
         appointments.filter((appointment) => appointment.category === category)
       );
