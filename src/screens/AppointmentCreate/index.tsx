@@ -142,11 +142,11 @@ const AppointmentCreate: React.FC = () => {
             autoCorrect={false}
             onChangeText={setDescription}
           />
-          <View style={styles.footer}>
-            <Button title="Agendar" onPress={handleSave} />
-          </View>
         </View>
       </ScrollView>
+      <View style={styles.footer}>
+        <Button title="Agendar" onPress={handleSave} />
+      </View>
       <ModalView visible={openGuildsModal} closeModal={handleCloseGuilds}>
         <Guilds handleGuildSelected={handleGuildSelect} />
       </ModalView>

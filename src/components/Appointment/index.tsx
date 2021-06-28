@@ -10,7 +10,7 @@ import GuildIcon from "../GuildIcon";
 import { styles } from "./styles";
 import { GuildProps } from "../Guild";
 
-type AppointmentProps = {
+export type AppointmentProps = {
   id: string;
   guild: GuildProps;
   category: string;
@@ -24,6 +24,7 @@ type Props = RectButtonProps & {
 
 const Appointment = ({ data, ...rest }: Props) => {
   const [category] = categories.filter((item) => item.id === data.category);
+  // console.log("Categories on Appointment :: ", category);
   const { owner } = data.guild;
   return (
     <RectButton {...rest}>
@@ -32,7 +33,7 @@ const Appointment = ({ data, ...rest }: Props) => {
           style={styles.guildIconContainer}
           colors={[colors.secondary50, colors.secondary70]}
         >
-          <GuildIcon />
+          <GuildIcon iconId={data.guild.icon} guildId={data.guild.id} />
         </LinearGradient>
         <View style={styles.content}>
           <View style={styles.header}>

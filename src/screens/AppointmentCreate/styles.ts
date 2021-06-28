@@ -14,6 +14,7 @@ export const styles = StyleSheet.create({
   form: {
     paddingHorizontal: 24,
     marginTop: 32,
+    marginBottom: 16,
   },
   select: {
     width: "100%",
@@ -60,7 +61,6 @@ export const styles = StyleSheet.create({
     color: colors.highlight,
   },
   footer: {
-    marginVertical: 20,
-    marginBottom: 56,
+    marginVertical: 10,
   },
 });
