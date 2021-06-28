@@ -23,6 +23,7 @@ import { GuildProps } from "~/components/Guild";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { COLLECTION_APPOINTMENTS } from "~/configs/database";
 import { useNavigation } from "@react-navigation/core";
+import { useEffect } from "react";
 
 const AppointmentCreate: React.FC = () => {
   const navigation = useNavigation();
@@ -36,6 +37,24 @@ const AppointmentCreate: React.FC = () => {
   const [hour, setHour] = useState("");
   const [minute, setMinute] = useState("");
   const [description, setDescription] = useState("");
+
+  const [formChecked, setFormChecked] = useState(false);
+
+  const checkForm = () => {
+    if (
+      day !== "" &&
+      month !== "" &&
+      hour !== "" &&
+      minute !== "" &&
+      description !== ""
+    ) {
+      setFormChecked(true);
+    }
+  };
+
+  useEffect(() => {
+    checkForm();
+  }, [day, month, hour, minute, description]);
 
   const handleOpenGuilds = () => {
     setOpenGuildsModal(true);
@@ -145,7 +164,11 @@ const AppointmentCreate: React.FC = () => {
         </View>
       </ScrollView>
       <View style={styles.footer}>
-        <Button title="Agendar" onPress={handleSave} />
+        <Button
+          disabled={formChecked ? false : true}
+          title="Agendar"
+          onPress={handleSave}
+        />
       </View>
       <ModalView visible={openGuildsModal} closeModal={handleCloseGuilds}>
         <Guilds handleGuildSelected={handleGuildSelect} />
