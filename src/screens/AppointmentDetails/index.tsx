@@ -120,9 +120,11 @@ const AppointmentDetails: React.FC = () => {
           />
         </>
       )}
-      <View style={styles.footer}>
-        <ButtonIcon title="Entrar na partida" onPress={openServer} />
-      </View>
+      {guild.owner && (
+        <View style={styles.footer}>
+          <ButtonIcon title="Entrar na partida" onPress={openServer} />
+        </View>
+      )}
     </View>
   );
 };
