@@ -27,6 +27,7 @@ type User = {
 type AuthContextData = {
   user: User;
   signIn: () => Promise<void>;
+  signOut: () => Promise<void>;
   loading: boolean;
 };
 
@@ -75,9 +76,15 @@ function AuthProvider({ children }: AuthProviderProps) {
     }
   };
 
+  const signOut = async () => {
+    console.log("Executed");
+    setUser({} as User);
+    await AsyncStorage.removeItem(COLLECTION_USERS);
+  };
   // user is Logged? on a few words, he has some token?
   async function loadUserStorageData() {
     const storage = await AsyncStorage.getItem(COLLECTION_USERS);
+
     if (storage) {
       const userLogged = JSON.parse(storage) as User;
       api.defaults.headers.authorization = `Bearer ${userLogged.token}`;
@@ -95,6 +102,7 @@ function AuthProvider({ children }: AuthProviderProps) {
         user,
         signIn,
         loading,
+        signOut,
       }}
     >
       {children}
