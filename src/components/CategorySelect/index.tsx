@@ -5,7 +5,7 @@ import { categories } from "~/utils/categories";
 import { styles } from "./styles";
 
 type CategorySelectProps = {
-  categorySelected: string;
+  categorySelected: string | null;
   setCategory: (categoryId: string) => void;
   hasCheckedBox?: boolean;
 };
