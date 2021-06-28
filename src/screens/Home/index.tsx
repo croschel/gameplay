@@ -68,7 +68,10 @@ const Home: React.FC = () => {
         <Load />
       ) : (
         <>
-          <ListHeader title="Partidas agendadas" subtitle="Total 6" />
+          <ListHeader
+            title="Partidas agendadas"
+            subtitle={`Total ${appointments?.length}`}
+          />
           <FlatList
             style={styles.matches}
             data={appointments}
