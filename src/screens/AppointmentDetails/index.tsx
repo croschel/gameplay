@@ -1,18 +1,61 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, ImageBackground, FlatList } from "react-native";
 import ListHeader from "~/components/ListHeader";
 import { BorderlessButton } from "react-native-gesture-handler";
 import Header from "~/components/Header";
-import Member from "~/components/Member";
+import Member, { MemberProps } from "~/components/Member";
 import ListDivider from "~/components/ListDivider";
 import ButtonIcon from "~/components/ButtonIcon";
+import { Load } from "~/components/Load";
 import { Fontisto } from "@expo/vector-icons";
 import BannerPng from "~/assets/banner.png";
-import { members } from "~/mocks/members";
+
 import { styles } from "./styles";
 import { colors } from "~/global/styles/theme";
+import { useRoute } from "@react-navigation/native";
+import { AppointmentProps } from "~/components/Appointment";
+import { api } from "~/services/api";
+import { useState } from "react";
+import { Alert } from "react-native";
+
+type NavigationProps = {
+  appointmentSelected: AppointmentProps;
+};
+
+type ServerWidgetAtt = {
+  id: string;
+  name: string;
+  instant_invite: string;
+  members: MemberProps[];
+};
 
 const AppointmentDetails: React.FC = () => {
+  const route = useRoute();
+  const { appointmentSelected } = route.params as NavigationProps;
+  const { guild, description } = appointmentSelected;
+
+  const [serverWidget, setServerWidget] = useState<ServerWidgetAtt>(
+    {} as ServerWidgetAtt
+  );
+  const [loading, setLoading] = useState(true);
+
+  const fetchGuildInfo = async () => {
+    try {
+      const response = await api.get(`/guilds/${guild.id}/widget.json`);
+      setServerWidget(response.data);
+    } catch {
+      Alert.alert(
+        "Verifique as configurações do servidor. Será que o Widget está habilitado?"
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchGuildInfo();
+  }, []);
+
   return (
     <View style={styles.container}>
       <Header
@@ -25,21 +68,28 @@ const AppointmentDetails: React.FC = () => {
       />
       <ImageBackground source={BannerPng} style={styles.banner}>
         <View style={styles.bannerContent}>
-          <Text style={styles.title}>Lendários</Text>
-          <Text style={styles.subtitle}>
-            É hoje que vamos chegar ao challenger sem perder uma partida da md10
-          </Text>
+          <Text style={styles.title}>{guild.name}</Text>
+          <Text style={styles.subtitle}>{description}</Text>
         </View>
       </ImageBackground>
-      <ListHeader title="Jogadores" subtitle="total 3" />
-      <FlatList
-        data={members}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <Member data={item} />}
-        ItemSeparatorComponent={() => <ListDivider />}
-        contentContainerStyle={{ paddingBottom: 16 }}
-        style={styles.members}
-      />
+      {loading ? (
+        <Load />
+      ) : (
+        <>
+          <ListHeader
+            title="Jogadores"
+            subtitle={`total ${serverWidget.members.length}`}
+          />
+          <FlatList
+            data={serverWidget.members}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => <Member data={item} />}
+            ItemSeparatorComponent={() => <ListDivider />}
+            contentContainerStyle={{ paddingBottom: 16 }}
+            style={styles.members}
+          />
+        </>
+      )}
       <View style={styles.footer}>
         <ButtonIcon title="Entrar na partida" onPress={() => {}} />
       </View>

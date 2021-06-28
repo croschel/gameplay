@@ -22,8 +22,10 @@ const Home: React.FC = () => {
     categoryId === category ? setCategory(null) : setCategory(categoryId);
   };
 
-  const handleAppointmentDetails = () => {
-    navigation.navigate("AppointmentDetails");
+  const handleAppointmentDetails = (appointmentSelected: AppointmentProps) => {
+    navigation.navigate("AppointmentDetails", {
+      appointmentSelected,
+    });
   };
 
   const handleAppointmentCreate = () => {
@@ -77,7 +79,10 @@ const Home: React.FC = () => {
             data={appointments}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
-              <Appointment data={item} onPress={handleAppointmentDetails} />
+              <Appointment
+                data={item}
+                onPress={() => handleAppointmentDetails(item)}
+              />
             )}
             contentContainerStyle={{ paddingBottom: 69 }}
             ItemSeparatorComponent={() => <ListDivider />}

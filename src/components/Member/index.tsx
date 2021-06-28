@@ -5,11 +5,12 @@ import Avatar from "../Avatar";
 
 import { styles } from "./styles";
 
-type MemberProps = {
+export type MemberProps = {
   id: string;
   username: string;
   avatar: string;
   status: string;
+  avatar_url: string;
 };
 
 type Props = {
@@ -18,9 +19,12 @@ type Props = {
 
 const Member = ({ data }: Props) => {
   const isOnline = data.status === "online";
+  const defaultUri =
+    "https://www.net-aware.org.uk/siteassets/images-and-icons/application-icons/app-icons-discord.png?w=585&scale=down";
+
   return (
     <View style={styles.container}>
-      <Avatar urlImage={data.avatar} />
+      <Avatar urlImage={data.avatar_url ? data.avatar_url : defaultUri} />
       <View>
         <Text style={styles.title}>{data.username}</Text>
         <View style={styles.status}>
