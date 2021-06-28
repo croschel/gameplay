@@ -1,5 +1,12 @@
 import React, { useEffect } from "react";
-import { View, Text, ImageBackground, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  ImageBackground,
+  FlatList,
+  Share,
+  Platform,
+} from "react-native";
 import ListHeader from "~/components/ListHeader";
 import { BorderlessButton } from "react-native-gesture-handler";
 import Header from "~/components/Header";
@@ -17,6 +24,7 @@ import { AppointmentProps } from "~/components/Appointment";
 import { api } from "~/services/api";
 import { useState } from "react";
 import { Alert } from "react-native";
+import * as Linking from "expo-linking";
 
 type NavigationProps = {
   appointmentSelected: AppointmentProps;
@@ -42,6 +50,7 @@ const AppointmentDetails: React.FC = () => {
   const fetchGuildInfo = async () => {
     try {
       const response = await api.get(`/guilds/${guild.id}/widget.json`);
+      console.log(response.data);
       setServerWidget(response.data);
     } catch {
       Alert.alert(
@@ -50,6 +59,25 @@ const AppointmentDetails: React.FC = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleShareInvitation = () => {
+    const message =
+      Platform.OS === "ios"
+        ? `Junte-se a ${guild.name}`
+        : serverWidget.instant_invite;
+    if (serverWidget.instant_invite !== null) {
+      Share.share({
+        message,
+        url: serverWidget.instant_invite,
+      });
+    } else {
+      Alert.alert("Você precisa autorizar convites em seu server!");
+    }
+  };
+
+  const openServer = () => {
+    Linking.openURL(serverWidget.instant_invite);
   };
 
   useEffect(() => {
@@ -61,9 +89,11 @@ const AppointmentDetails: React.FC = () => {
       <Header
         title="Detalhes"
         actions={
-          <BorderlessButton>
-            <Fontisto name="share" size={24} color={colors.primary} />
-          </BorderlessButton>
+          guild.owner && (
+            <BorderlessButton onPress={handleShareInvitation}>
+              <Fontisto name="share" size={24} color={colors.primary} />
+            </BorderlessButton>
+          )
         }
       />
       <ImageBackground source={BannerPng} style={styles.banner}>
@@ -91,7 +121,7 @@ const AppointmentDetails: React.FC = () => {
         </>
       )}
       <View style={styles.footer}>
-        <ButtonIcon title="Entrar na partida" onPress={() => {}} />
+        <ButtonIcon title="Entrar na partida" onPress={openServer} />
       </View>
     </View>
   );
